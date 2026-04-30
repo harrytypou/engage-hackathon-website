@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>ECE Hackathon & Innovation Day — ΠΔΜ</title>
+  <meta name="description" content="Δύο μέρες καινοτομίας, τεχνολογίας και δημιουργίας στο Τμήμα Ηλεκτρολόγων Μηχανικών & Μηχανικών Υπολογιστών του Πανεπιστημίου Δυτικής Μακεδονίας." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@10..48,400;10..48,500;10..48,600;10..48,700;10..48,800&family=JetBrains+Mono:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+
+  <link rel="icon" type="image/png" href="logo.png" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<script>
+  document.documentElement.classList.add('js-ready');
+  setTimeout(function () {
+    if (!document.documentElement.classList.contains('motion-ready')) {
+      document.documentElement.classList.add('motion-fallback');
+    }
+  }, 3500);
+</script>
+
+<!-- Decorative SVG filters -->
+<svg class="svg-defs" aria-hidden="true">
+  <defs>
+    <filter id="container-glass" x="0%" y="0%" width="100%" height="100%" colorInterpolationFilters="sRGB">
+      <feTurbulence type="fractalNoise" baseFrequency="0.05 0.05" numOctaves="1" seed="1" result="turbulence" />
+      <feGaussianBlur in="turbulence" stdDeviation="2" result="blurredNoise" />
+      <feDisplacementMap in="SourceGraphic" in2="blurredNoise" scale="70" xChannelSelector="R" yChannelSelector="B" result="displaced" />
+      <feGaussianBlur in="displaced" stdDeviation="4" result="finalBlur" />
+      <feComposite in="finalBlur" in2="finalBlur" operator="over" />
+    </filter>
+  </defs>
+</svg>
+
+<div class="cursor-dot" aria-hidden="true"></div>
+<div class="grid-overlay" aria-hidden="true"></div>
+
+<!-- ====================== NAV ====================== -->
+<header class="nav">
+  <div class="nav-inner">
+    <a href="#top" class="nav-brand">
+      <img src="logo_white.png" alt="ENGAGE" class="nav-logo" />
+      <span class="nav-brand-divider"></span>
+      <span class="nav-brand-text">ECE&nbsp;HACKATHON</span>
+    </a>
+
+    <nav class="nav-links" aria-label="Πλοήγηση">
+      <a href="#event">Εκδήλωση</a>
+      <a href="#schedule">Πρόγραμμα</a>
+      <a href="#talks">Ομιλίες</a>
+      <a href="#hackathon">Hackathon</a>
+      <a href="#prizes">Βραβεία</a>
+    </nav>
+
+    <!-- Hamburger (mobile only) -->
+    <button class="nav-hamburger" aria-label="Μενού" aria-expanded="false" aria-controls="mobile-menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+
+  <!-- Mobile drawer -->
+  <div class="mobile-menu" id="mobile-menu" aria-hidden="true">
+    <nav aria-label="Κινητό μενού">
+      <a href="#event">Εκδήλωση</a>
+      <a href="#schedule">Πρόγραμμα</a>
+      <a href="#talks">Ομιλίες</a>
+      <a href="#hackathon">Hackathon</a>
+      <a href="#prizes">Βραβεία</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ====================== HERO ====================== -->
+<section id="top" class="hero">
+  <canvas id="shader-canvas" class="hero-shader" aria-hidden="true"></canvas>
+  <div class="hero-vignette" aria-hidden="true"></div>
+
+  <div class="hero-frame">
+    <div class="hero-frame-inner">
+      <!-- Top-row meta -->
+      <div class="hero-top">
+        <div class="hero-top-cell">
+          <span class="hero-top-label">ΕΚΔΟΣΗ</span>
+          <span class="hero-top-value">001 / 2026</span>
+        </div>
+        <div class="hero-top-cell">
+          <span class="hero-top-label">ΤΟΠΟΘΕΣΙΑ</span>
+          <span class="hero-top-value">UOWM · ΤΗΜ</span>
+        </div>
+        <div class="hero-top-cell">
+          <span class="hero-top-label">ΔΙΑΡΚΕΙΑ</span>
+          <span class="hero-top-value">2 ΜΕΡΕΣ</span>
+        </div>
+        <div class="hero-top-cell">
+          <span class="hero-top-label">ΜΟΡΦΗ</span>
+          <span class="hero-top-value">ΔΙΑ ΖΩΣΗΣ</span>
+        </div>
+      </div>
+
+      <!-- Eyebrow -->
+      <div class="hero-eyebrow">
+        <span class="hero-eyebrow-line"></span>
+        <span class="hero-eyebrow-text">ΤΗΜ × ΠΔΜ · ΕΚΔΗΛΩΣΗ ΚΑΙΝΟΤΟΜΙΑΣ</span>
+        <span class="hero-eyebrow-line"></span>
+      </div>
+
+      <!-- Headline -->
+      <h1 class="hero-title">
+        <span class="hero-title-line" data-reveal>Engage</span>
+        <span class="hero-title-line italic" data-reveal>Hackathon.</span>
+      </h1>
+
+      <p class="hero-sub" data-reveal>
+        Δύο μέρες όπου φοιτητές, καθηγητές και συνεργάτες μετατρέπουν ιδέες σε πρωτότυπα.
+        Ενσωματωμένα συστήματα, IoT, drones, ρομποτική &mdash; ζωντανά, στα εργαστήρια,
+        σε ομάδες των τριών έως πέντε.
+      </p>
+
+      <!-- CTA -->
+      <div class="hero-cta-row" data-reveal>
+        <a href="#schedule" class="liquid-button">
+          <span class="liquid-button-shadow"></span>
+          <span class="liquid-button-glass"></span>
+          <span class="liquid-button-text">Δες το Πρόγραμμα
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </span>
+        </a>
+        <a href="#hackathon" class="ghost-button">
+          <span>Οδηγός Hackathon</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 17 17 7M9 7h8v8"/></svg>
+        </a>
+      </div>
+
+      <!-- Bottom marquee -->
+      <div class="hero-marquee" aria-hidden="true">
+        <div class="hero-marquee-track">
+          <span>ΕΞΥΠΝΗ ΠΑΝΕΠΙΣΤΗΜΙΟΥΠΟΛΗ</span><span class="dot">●</span>
+          <span>ΠΕΡΙΒΑΛΛΟΝΤΙΚΗ ΤΕΧΝΟΛΟΓΙΑ</span><span class="dot">●</span>
+          <span>ΕΝΣΩΜΑΤΩΜΕΝΑ ΣΥΣΤΗΜΑΤΑ</span><span class="dot">●</span>
+          <span>ΑΝΟΙΧΤΗ ΚΑΙΝΟΤΟΜΙΑ</span><span class="dot">●</span>
+          <span>ROBOT WALL-E</span><span class="dot">●</span>
+          <span>DRONE SKYVIEW</span><span class="dot">●</span>
+          <span>TELNAS LAB</span><span class="dot">●</span>
+          <span>UNIVERSWATER</span><span class="dot">●</span>
+          <span>URBANFLOODS</span><span class="dot">●</span>
+          <!-- duplicate for seamless loop -->
+          <span>ΕΞΥΠΝΗ ΠΑΝΕΠΙΣΤΗΜΙΟΥΠΟΛΗ</span><span class="dot">●</span>
+          <span>ΠΕΡΙΒΑΛΛΟΝΤΙΚΗ ΤΕΧΝΟΛΟΓΙΑ</span><span class="dot">●</span>
+          <span>ΕΝΣΩΜΑΤΩΜΕΝΑ ΣΥΣΤΗΜΑΤΑ</span><span class="dot">●</span>
+          <span>ΑΝΟΙΧΤΗ ΚΑΙΝΟΤΟΜΙΑ</span><span class="dot">●</span>
+          <span>ROBOT WALL-E</span><span class="dot">●</span>
+          <span>DRONE SKYVIEW</span><span class="dot">●</span>
+          <span>TELNAS LAB</span><span class="dot">●</span>
+          <span>UNIVERSWATER</span><span class="dot">●</span>
+          <span>URBANFLOODS</span><span class="dot">●</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====================== STATS STRIP ====================== -->
+<section class="stats" aria-label="Στατιστικά εκδήλωσης">
+  <div class="stats-inner">
+    <div class="stat" data-stat>
+      <div class="stat-value"><span data-counter="2">2</span></div>
+      <div class="stat-meta">
+        <span class="stat-label">Μέρες δημιουργίας</span>
+        <span class="stat-tag">[01]</span>
+      </div>
+    </div>
+    <div class="stat" data-stat>
+      <div class="stat-value"><span data-counter="6">6</span></div>
+      <div class="stat-meta">
+        <span class="stat-label">Ομιλίες &amp; demos</span>
+        <span class="stat-tag">[02]</span>
+      </div>
+    </div>
+    <div class="stat" data-stat>
+      <div class="stat-value"><span data-counter="12">12</span></div>
+      <div class="stat-meta">
+        <span class="stat-label">Αναμενόμενες ομάδες</span>
+        <span class="stat-tag">[03]</span>
+      </div>
+    </div>
+    <div class="stat" data-stat>
+      <div class="stat-value"><span data-counter="4">4</span></div>
+      <div class="stat-meta">
+        <span class="stat-label">Θεματικές hackathon</span>
+        <span class="stat-tag">[04]</span>
+      </div>
+    </div>
+    <div class="stat" data-stat>
+      <div class="stat-value"><span data-counter="3">3</span></div>
+      <div class="stat-meta">
+        <span class="stat-label">Κύρια βραβεία</span>
+        <span class="stat-tag">[05]</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====================== EVENT ====================== -->
+<section id="event" class="event section">
+  <div class="section-head">
+    <div class="section-head-left">
+      <span class="section-tag">§ 01 · ΣΧΕΤΙΚΑ</span>
+      <h2 class="section-title">Μια εκδήλωση<br/><em>από φοιτητές,</em> για όλους.</h2>
+    </div>
+    <div class="section-head-right">
+      <p>
+        Το ECE Hackathon &amp; Innovation Day φέρνει κοντά τα εργαστήρια,
+        το ΔΕΠ και τις φοιτητικές ομάδες του Τμήματος Ηλεκτρολόγων Μηχανικών &amp; Μηχανικών
+        Υπολογιστών του Πανεπιστημίου Δυτικής Μακεδονίας. Δύο μέρες ομιλιών,
+        live demos και ένα sprint κατασκευής &mdash; με mentors στο χώρο,
+        εξοπλισμό στα εργαστήρια και projects που πηγαίνουν από ιδέα σε πρωτότυπο.
+      </p>
+    </div>
+  </div>
+
+  <div class="event-grid">
+    <article class="event-card event-card-large" data-reveal>
+      <div class="event-card-head">
+        <span class="event-card-num">01</span>
+        <span class="event-card-kind">ΧΩΡΟΣ</span>
+      </div>
+      <h3>Αμφιθέατρο &amp; Εργαστήρια ΤΗΜ</h3>
+      <p>Οι ομιλίες γίνονται στο κεντρικό αμφιθέατρο. Το hackathon εκτείνεται στα εργαστήρια ΤΗΜ &mdash; πάγκοι, παλμογράφοι, 3D εκτυπωτές και Wi-Fi.</p>
+      <div class="event-card-foot">
+        <span>Πανεπιστήμιο Δυτικής Μακεδονίας</span>
+        <span class="event-card-icon">→</span>
+      </div>
+    </article>
+
+    <article class="event-card" data-reveal>
+      <div class="event-card-head">
+        <span class="event-card-num">02</span>
+        <span class="event-card-kind">ΟΜΑΔΕΣ</span>
+      </div>
+      <h3>3–5 άτομα</h3>
+      <p>Ένας τεχνικός υπεύθυνος, ένας παρουσιαστής, και οι υπόλοιποι γύρω από το αντικείμενο.</p>
+    </article>
+
+    <article class="event-card" data-reveal>
+      <div class="event-card-head">
+        <span class="event-card-num">03</span>
+        <span class="event-card-kind">ΚΟΙΝΟ</span>
+      </div>
+      <h3>Φοιτητές · ΔΕΠ · Συνεργάτες</h3>
+      <p>Ανοιχτό σε όλους τους φοιτητές ΤΗΜ· mentors από το ΔΕΠ και συνεργάτες από τη βιομηχανία.</p>
+    </article>
+
+    <article class="event-card" data-reveal>
+      <div class="event-card-head">
+        <span class="event-card-num">04</span>
+        <span class="event-card-kind">ΔΙΟΡΓΑΝΩΤΗΣ</span>
+      </div>
+      <h3>Τμήμα ΗΜ&amp;ΜΥ · ΠΔΜ</h3>
+      <p>Τμήμα Ηλεκτρολόγων Μηχανικών &amp; Μηχανικών Υπολογιστών, Πανεπιστήμιο Δυτικής Μακεδονίας.</p>
+    </article>
+
+    <!-- Decorative blank cell with diagonal design cue -->
+    <div class="event-card event-card-blank" aria-hidden="true"></div>
+  </div>
+</section>
+
+<!-- ====================== SCHEDULE ====================== -->
+<section id="schedule" class="schedule section">
+  <div class="section-head">
+    <div class="section-head-left">
+      <span class="section-tag">§ 02 · ΠΡΟΓΡΑΜΜΑ</span>
+      <h2 class="section-title">Δύο μέρες,<br/>ένα <em>build sprint.</em></h2>
+    </div>
+    <div class="section-head-right">
+      <p>Από το keynote ως τα βραβεία κλεισίματος. Οι δραστηριότητες ακολουθούν 24ωρη μορφή, από την εγγραφή ως το νυχτερινό sprint και τις τελικές παρουσιάσεις.</p>
+    </div>
+  </div>
+
+  <div class="schedule-tabs" role="tablist">
+    <button class="schedule-tab is-active" data-day="1" role="tab">
+      <span class="schedule-tab-num">ΜΕΡΑ 01</span>
+      <span class="schedule-tab-title">Εισαγωγή &amp; Kickoff</span>
+    </button>
+    <button class="schedule-tab" data-day="2" role="tab">
+      <span class="schedule-tab-num">ΜΕΡΑ 02</span>
+      <span class="schedule-tab-title">Παρουσιάσεις &amp; Βραβεία</span>
+    </button>
+  </div>
+
+  <!-- DAY 1 -->
+  <div class="schedule-panel is-active" data-day-panel="1">
+    <ol class="timeline">
+      <li class="timeline-item" data-type="registration">
+        <div class="timeline-time">09:00 — 09:30</div>
+        <div class="timeline-content">
+          <span class="timeline-kind">Εγγραφή</span>
+          <h4>Εγγραφές &amp; Καλωσόρισμα</h4>
+          <p>Badge, πακέτο συμμετοχής, τοποθέτηση ομάδων</p>
+          <span class="timeline-who">Οργανωτική Επιτροπή ECE</span>
+        </div>
+      </li>
+      <li class="timeline-item" data-type="talk">
+        <div class="timeline-time">09:30 — 10:00</div>
+        <div class="timeline-content">
+          <span class="timeline-kind">Ομιλία</span>
+          <h4>Χαιρετισμός Πρύτανη / Αντιπρύτανη ΠΔΜ</h4>
+          <p>Σημασία καινοτομίας για την περιφέρεια</p>
+          <span class="timeline-who">Διοίκηση Πανεπιστημίου Δυτικής Μακεδονίας</span>
+        </div>
+      </li>
+      <li class="timeline-item" data-type="talk">
+        <div class="timeline-time">10:00 — 10:30</div>
+        <div class="timeline-content">
+          <span class="timeline-kind">Ομιλία</span>
+          <h4>Εισαγωγή από τον Πρόεδρο ΤΗΜ</h4>
+          <p>Όραμα τμήματος και ευκαιρίες</p>
+          <span class="timeline-who">Πρόεδρος ΤΗΜ</span>
+        </div>
+      </li>
+      <li class="timeline-item" data-type="talk">
+        <div class="timeline-time">10:30 — 11:15</div>
+        <div class="timeline-content">
+          <span class="timeline-kind">Ομιλία</span>
+          <h4>Ερευνητικές Υποδομές: TELNAS Lab</h4>
+          <p>UNIVERSWATER, URBANFLOODS</p>
+          <span class="timeline-who">Υπεύθυνος TELNAS</span>
+        </div>
+      </li>
+      <li class="timeline-item" data-type="talk">
+        <div class="timeline-time">11:15 — 11:45</div>
+        <div class="timeline-content">
+          <span class="timeline-kind">Ομιλία</span>
+          <h4>IoT, Ενσωματωμένα Συστήματα &amp; Drones</h4>
+          <p>Τεχνολογίες αιχμής στο ΤΗΜ</p>
+          <span class="timeline-who">Μέλος ΔΕΠ</span>
+        </div>
+      </li>
+      <li class="timeline-item" data-type="break">
+        <div class="timeline-time">11:45 — 12:15</div>
+        <div class="timeline-content">
+          <span class="timeline-kind">Διάλειμμα</span>
+          <h4>Καφές &amp; Networking</h4>
+        </div>
+      </li>
+      <li class="timeline-item" data-type="demo">
+        <div class="timeline-time">12:15 — 12:45</div>
+        <div class="timeline-content">
+          <span class="timeline-kind">Demo</span>
+          <h4>Showcase Φοιτητών: Robot Wall-E &amp; Drone SkyView</h4>
+          <p>Live demo projects</p>
+          <span class="timeline-who">ECE Innovators Group</span>
+        </div>
+      </li>
+      <li class="timeline-item" data-type="talk">
+        <div class="timeline-time">12:45 — 13:15</div>
+        <div class="timeline-content">
+          <span class="timeline-kind">Ομιλία</span>
+          <h4>3D Printing &amp; Rapid Prototyping</h4>
+          <p>Κατασκευή projects από σχέδιο σε εξάρτημα</p>
+          <span class="timeline-who">ECE / ENGAGE</span>
+        </div>
+      </li>
+      <li class="timeline-item" data-type="break">
+        <div class="timeline-time">13:15 — 14:00</div>
+        <div class="timeline-content">
+          <span class="timeline-kind">Διάλειμμα</span>
+          <h4>Γεύμα</h4>
+        </div>
+      </li>
+      <li class="timeline-item is-major" data-type="hackathon">
+        <div class="timeline-time">14:00 — 14:30</div>
+        <div class="timeline-content">
+          <span class="timeline-kind">Hackathon</span>
+          <h4>Hackathon Kickoff</h4>
+          <p>Ανακοίνωση challenge</p>
+          <span class="timeline-who">Οργανωτική Επιτροπή</span>
+        </div>
+      </li>
+      <li class="timeline-item is-long" data-type="hackathon">
+        <div class="timeline-time">14:30 — 19:00</div>
+        <div class="timeline-content">
+          <span class="timeline-kind">Build sprint</span>
+          <h4>1η Φάση Ανάπτυξης</h4>
+          <p>Sessιόν mentoring στα εργαστήρια</p>
+          <span class="timeline-who">Όλες οι ομάδες</span>
+        </div>
+      </li>
+      <li class="timeline-item" data-type="checkpoint">
+        <div class="timeline-time">19:00 — 19:30</div>
+        <div class="timeline-content">
+          <span class="timeline-kind">Checkpoint</span>
+          <h4>Αναφορά Προόδου</h4>
+          <p>2 λεπτά pitch ανά ομάδα</p>
+        </div>
+      </li>
+      <li class="timeline-item is-night" data-type="hackathon">
+        <div class="timeline-time">19:30 — αργά</div>
+        <div class="timeline-content">
+          <span class="timeline-kind">Προαιρετικό</span>
+          <h4>Νυχτερινή Εργασία</h4>
+          <p>Προαιρετική &mdash; τα εργαστήρια παραμένουν ανοιχτά</p>
+        </div>
+      </li>
+    </ol>
+  </div>
+
+  <!-- DAY 2 -->
+  <div class="schedule-panel" data-day-panel="2">
+    <ol class="timeline">
+      <li class="timeline-item" data-type="break">
+        <div class="timeline-time">09:00 — 09:30</div>
+        <div class="timeline-content">
+          <span class="timeline-kind">Διάλειμμα</span>
+          <h4>Πρωινό &amp; Final Sprint</h4>
+        </div>
+      </li>
+      <li class="timeline-item is-major" data-type="demo">
+        <div class="timeline-time">09:30 — 11:30</div>
+        <div class="timeline-content">
+          <span class="timeline-kind">Demo</span>
+          <h4>Παρουσιάσεις Ομάδων</h4>
+          <p>5' παρουσίαση + Q&amp;A</p>
+        </div>
+      </li>
+      <li class="timeline-item" data-type="panel">
+        <div class="timeline-time">11:30 — 12:00</div>
+        <div class="timeline-content">
+          <span class="timeline-kind">Panel</span>
+          <h4>Συζήτηση Πάνελ</h4>
+          <p>Καριέρα &amp; επιχειρηματικότητα</p>
+        </div>
+      </li>
+      <li class="timeline-item" data-type="break">
+        <div class="timeline-time">12:00 — 12:30</div>
+        <div class="timeline-content">
+          <span class="timeline-kind">Διάλειμμα</span>
+          <h4>Διάλειμμα · Κρίση</h4>
+        </div>
+      </li>
+      <li class="timeline-item" data-type="talk">
+        <div class="timeline-time">12:30 — 13:00</div>
+        <div class="timeline-content">
+          <span class="timeline-kind">Ομιλία</span>
+          <h4>Κλείσιμο Εκδήλωσης</h4>
+        </div>
+      </li>
+      <li class="timeline-item is-major" data-type="awards">
+        <div class="timeline-time">13:00 — 13:30</div>
+        <div class="timeline-content">
+          <span class="timeline-kind">Βραβεία</span>
+          <h4>Ανακοίνωση Βραβείων</h4>
+        </div>
+      </li>
+      <li class="timeline-item" data-type="social">
+        <div class="timeline-time">13:30 — 14:30</div>
+        <div class="timeline-content">
+          <span class="timeline-kind">Κοινωνικό</span>
+          <h4>Γεύμα Κλεισίματος</h4>
+        </div>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- ====================== TALKS ====================== -->
+<section id="talks" class="talks section">
+  <div class="section-head">
+    <div class="section-head-left">
+      <span class="section-tag">§ 03 · ΟΜΙΛΙΕΣ</span>
+      <h2 class="section-title">Έξι ομιλίες,<br/><em>από έρευνα</em> σε ρομπότ.</h2>
+    </div>
+    <div class="section-head-right">
+      <p>Από το keynote για την καινοτομία ως μοχλό ανάπτυξης, ως live demos του robot Wall-E και του drone SkyView που κατασκεύασαν φοιτητές.</p>
+    </div>
+  </div>
+
+  <div class="talks-grid">
+    <article class="talk-card" data-reveal>
+      <div class="talk-card-top">
+        <span class="talk-id">ΟΜΙΛΙΑ 01</span>
+        <span class="talk-card-line"></span>
+      </div>
+      <h3>Η Καινοτομία ως Πυλώνας Ανάπτυξης</h3>
+      <p>Σημασία καινοτομίας στην περιφερειακή ανάπτυξη.</p>
+      <div class="talk-card-foot">
+        <span class="talk-speaker">Πρύτανης / Αντιπρύτανης</span>
+        <span class="talk-arrow">↗</span>
+      </div>
+    </article>
+
+    <article class="talk-card" data-reveal>
+      <div class="talk-card-top">
+        <span class="talk-id">ΟΜΙΛΙΑ 02</span>
+        <span class="talk-card-line"></span>
+      </div>
+      <h3>TELNAS &amp; Ευρωπαϊκά Έργα</h3>
+      <p>Έρευνα και πρακτικές εφαρμογές. UNIVERSWATER · URBANFLOODS.</p>
+      <div class="talk-card-foot">
+        <span class="talk-speaker">Υπεύθυνος TELNAS</span>
+        <span class="talk-arrow">↗</span>
+      </div>
+    </article>
+
+    <article class="talk-card" data-reveal>
+      <div class="talk-card-top">
+        <span class="talk-id">ΟΜΙΛΙΑ 03</span>
+        <span class="talk-card-line"></span>
+      </div>
+      <h3>IoT &amp; Ρομποτική</h3>
+      <p>Εκπαίδευση, projects και τεχνολογίες αιχμής στο τμήμα ΗΜ&amp;ΜΥ.</p>
+      <div class="talk-card-foot">
+        <span class="talk-speaker">Μέλος ΔΕΠ</span>
+        <span class="talk-arrow">↗</span>
+      </div>
+    </article>
+
+    <article class="talk-card is-feature" data-reveal>
+      <div class="talk-card-top">
+        <span class="talk-id">ΟΜΙΛΙΑ 04 · DEMO</span>
+        <span class="talk-card-line"></span>
+      </div>
+      <h3>Robot Wall-E</h3>
+      <p>AI φωνητικός βοηθός — ενσωματωμένος πράκτορας συνομιλίας πάνω σε ESP32-S3 με προσαρμοσμένο audio pipeline.</p>
+      <div class="talk-card-foot">
+        <span class="talk-speaker">Ομάδα ECE</span>
+        <span class="talk-arrow">↗</span>
+      </div>
+    </article>
+
+    <article class="talk-card is-feature" data-reveal>
+      <div class="talk-card-top">
+        <span class="talk-id">ΟΜΙΛΙΑ 05 · DEMO</span>
+        <span class="talk-card-line"></span>
+      </div>
+      <h3>Drone SkyView</h3>
+      <p>Ανάπτυξη τετρακόπτερου — flight controller Raspberry Pi, BNO055 IMU, MQTT command stack.</p>
+      <div class="talk-card-foot">
+        <span class="talk-speaker">Ομάδα ECE</span>
+        <span class="talk-arrow">↗</span>
+      </div>
+    </article>
+
+    <article class="talk-card" data-reveal>
+      <div class="talk-card-top">
+        <span class="talk-id">ΟΜΙΛΙΑ 06</span>
+        <span class="talk-card-line"></span>
+      </div>
+      <h3>3D Printing</h3>
+      <p>Rapid prototyping &mdash; από σχέδιο σε εξάρτημα σε λίγες ώρες.</p>
+      <div class="talk-card-foot">
+        <span class="talk-speaker">ENGAGE / ECE</span>
+        <span class="talk-arrow">↗</span>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ====================== HACKATHON GUIDE ====================== -->
+<section id="hackathon" class="hackguide section">
+  <div class="section-head">
+    <div class="section-head-left">
+      <span class="section-tag">§ 04 · HACKATHON</span>
+      <h2 class="section-title">Οδηγός,<br/><em>θεματικές,</em> κανόνες.</h2>
+    </div>
+    <div class="section-head-right">
+      <p>Τέσσερις ανοιχτές θεματικές. Εικοσιτέσσερις ώρες κατασκευής. Εξοπλισμός στα εργαστήρια, mentors στο χώρο, και σαφές σύστημα αξιολόγησης ώστε η δουλειά να μιλά μόνη της.</p>
+    </div>
+  </div>
+
+  <!-- Themes -->
+  <div class="themes">
+    <div class="themes-label">
+      <span class="section-tag-mini">ΘΕΜΑΤΙΚΕΣ · ΔΙΑΛΕΞΕ ΜΙΑ</span>
+    </div>
+    <div class="themes-grid">
+      <div class="theme-card" data-reveal>
+        <span class="theme-num">/01</span>
+        <h3>Έξυπνη Πανεπιστημιούπολη</h3>
+        <p>Κτίρια, αίθουσες, καθημερινές ανάγκες — ανασχεδιαζόμενα με αισθητήρες, dashboards και έξυπνα feedback loops.</p>
+        <div class="theme-card-bar"></div>
+      </div>
+      <div class="theme-card" data-reveal>
+        <span class="theme-num">/02</span>
+        <h3>Περιβαλλοντική Τεχνολογία</h3>
+        <p>Πλημμύρες, νερό, αέρας, ενέργεια. Σε ευθυγράμμιση με το TELNAS και τα έργα UNIVERSWATER / URBANFLOODS.</p>
+        <div class="theme-card-bar"></div>
+      </div>
+      <div class="theme-card" data-reveal>
+        <span class="theme-num">/03</span>
+        <h3>Ενσωματωμένα Συστήματα</h3>
+        <p>Μικροελεγκτές, real-time έλεγχος, firmware και τα καλώδια που τα ενώνουν. Projects με επίκεντρο το hardware.</p>
+        <div class="theme-card-bar"></div>
+      </div>
+      <div class="theme-card" data-reveal>
+        <span class="theme-num">/04</span>
+        <h3>Ανοιχτή Καινοτομία</h3>
+        <p>Ελεύθερο θέμα. Εκπλήξτε μας — αρκεί να το κάνετε demo στη σκηνή και να παραδώσετε το repo στην ώρα του.</p>
+        <div class="theme-card-bar"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Rules + Resources + Evaluation -->
+  <div class="rubric-grid">
+    <div class="rubric-cell rubric-cell-tall" data-reveal>
+      <span class="rubric-tag">ΚΑΝΟΝΕΣ ΟΜΑΔΩΝ</span>
+      <div class="rubric-rows">
+        <div class="rubric-row">
+          <span class="rubric-row-label">Μέγεθος</span>
+          <span class="rubric-row-value">3 — 5 άτομα</span>
+        </div>
+        <div class="rubric-row">
+          <span class="rubric-row-label">Συνιστώμενες ομάδες</span>
+          <span class="rubric-row-value">6 — 12</span>
+        </div>
+        <div class="rubric-row">
+          <span class="rubric-row-label">Απαιτούμενοι ρόλοι</span>
+          <span class="rubric-row-value">τεχν. υπεύθ. · παρουσιαστής</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="rubric-cell" data-reveal>
+      <span class="rubric-tag">ΔΙΑΘΕΣΙΜΟΙ ΠΟΡΟΙ</span>
+      <ul class="rubric-list">
+        <li>Arduino · Raspberry Pi · ESP32</li>
+        <li>3D εκτυπωτές</li>
+        <li>Ηλεκτρονικά εξαρτήματα &amp; πάγκοι</li>
+        <li>Wi-Fi &amp; servers</li>
+        <li>Mentors από το ΔΕΠ ΤΗΜ</li>
+      </ul>
+    </div>
+
+    <div class="rubric-cell" data-reveal>
+      <span class="rubric-tag">ΛΙΣΤΑ ΥΠΟΒΟΛΗΣ</span>
+      <ul class="rubric-list rubric-list-check">
+        <li>GitHub αποθετήριο</li>
+        <li>Τεκμηρίωση README</li>
+        <li>Video demo ή live demo</li>
+        <li>Διαφάνειες — max 5</li>
+      </ul>
+    </div>
+
+    <div class="rubric-cell" data-reveal>
+      <span class="rubric-tag">ΕΠΙΤΡΟΠΗ ΚΡΙΣΗΣ</span>
+      <ul class="rubric-list">
+        <li>Μέλη ΔΕΠ</li>
+        <li>Εκπρόσωπος βιομηχανίας</li>
+        <li>Απόφοιτοι</li>
+        <li>Εκπρόσωπος φοιτητών</li>
+      </ul>
+    </div>
+
+    <div class="rubric-cell rubric-cell-wide rubric-cell-eval" data-reveal>
+      <span class="rubric-tag">ΑΝΑΛΥΣΗ ΑΞΙΟΛΟΓΗΣΗΣ</span>
+      <div class="eval-bars">
+        <div class="eval-bar" data-eval="35">
+          <div class="eval-bar-head">
+            <span class="eval-bar-label">Τεχνική υλοποίηση</span>
+            <span class="eval-bar-pct">35<small>%</small></span>
+          </div>
+          <div class="eval-bar-track"><div class="eval-bar-fill" style="--pct: 35%"></div></div>
+        </div>
+        <div class="eval-bar" data-eval="25">
+          <div class="eval-bar-head">
+            <span class="eval-bar-label">Καινοτομία</span>
+            <span class="eval-bar-pct">25<small>%</small></span>
+          </div>
+          <div class="eval-bar-track"><div class="eval-bar-fill" style="--pct: 25%"></div></div>
+        </div>
+        <div class="eval-bar" data-eval="20">
+          <div class="eval-bar-head">
+            <span class="eval-bar-label">Παρουσίαση</span>
+            <span class="eval-bar-pct">20<small>%</small></span>
+          </div>
+          <div class="eval-bar-track"><div class="eval-bar-fill" style="--pct: 20%"></div></div>
+        </div>
+        <div class="eval-bar" data-eval="20">
+          <div class="eval-bar-head">
+            <span class="eval-bar-label">Πρακτικότητα</span>
+            <span class="eval-bar-pct">20<small>%</small></span>
+          </div>
+          <div class="eval-bar-track"><div class="eval-bar-fill" style="--pct: 20%"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====================== PRIZES ====================== -->
+<section id="prizes" class="prizes section">
+  <div class="section-head">
+    <div class="section-head-left">
+      <span class="section-tag">§ 05 · ΒΡΑΒΕΙΑ</span>
+      <h2 class="section-title">Τρόπαια, kits<br/>&amp; <em>ειδικά βραβεία.</em></h2>
+    </div>
+    <div class="section-head-right">
+      <p>Τρεις κύριες κατατάξεις με hardware kits, συν πέντε ειδικά βραβεία για τη δουλειά που ξεχωρίζει πέρα από τον πίνακα αποτελεσμάτων.</p>
+    </div>
+  </div>
+
+  <div class="podium">
+    <div class="podium-card podium-2" data-reveal>
+      <div class="podium-card-top">
+        <span class="podium-place">02</span>
+        <span class="podium-medal">ΑΡΓΥΡΟ</span>
+      </div>
+      <h3>Δεύτερη Θέση</h3>
+      <ul class="podium-rewards">
+        <li>Τρόπαιο</li>
+        <li>Πιστοποιητικό</li>
+        <li>Βιβλία &amp; Συνδρομές</li>
+      </ul>
+      <div class="podium-block podium-block-2"></div>
+    </div>
+
+    <div class="podium-card podium-1" data-reveal>
+      <div class="podium-card-top">
+        <span class="podium-place">01</span>
+        <span class="podium-medal">ΧΡΥΣΟ</span>
+      </div>
+      <h3>Πρώτη Θέση</h3>
+      <ul class="podium-rewards">
+        <li>Τρόπαιο</li>
+        <li>Πιστοποιητικό</li>
+        <li>Hardware Kit</li>
+      </ul>
+      <div class="podium-block podium-block-1"></div>
+    </div>
+
+    <div class="podium-card podium-3" data-reveal>
+      <div class="podium-card-top">
+        <span class="podium-place">03</span>
+        <span class="podium-medal">ΧΑΛΚΙΝΟ</span>
+      </div>
+      <h3>Τρίτη Θέση</h3>
+      <ul class="podium-rewards">
+        <li>Τρόπαιο</li>
+        <li>Πιστοποιητικό</li>
+        <li>Membership Kit</li>
+      </ul>
+      <div class="podium-block podium-block-3"></div>
+    </div>
+  </div>
+
+  <div class="specials">
+    <div class="specials-label">
+      <span class="section-tag-mini">ΕΙΔΙΚΑ ΒΡΑΒΕΙΑ</span>
+      <span class="specials-count">05</span>
+    </div>
+    <div class="specials-grid">
+      <div class="special-card" data-reveal><span class="special-num">01</span><span class="special-name">Καλύτερη Κατασκευή Hardware</span></div>
+      <div class="special-card" data-reveal><span class="special-num">02</span><span class="special-name">Καλύτερη Παρουσίαση</span></div>
+      <div class="special-card" data-reveal><span class="special-num">03</span><span class="special-name">Πιο Δημιουργική Ιδέα</span></div>
+      <div class="special-card" data-reveal><span class="special-num">04</span><span class="special-name">Καλύτερος Περιβαλλοντικός Αντίκτυπος</span></div>
+      <div class="special-card" data-reveal><span class="special-num">05</span><span class="special-name">Καλύτερη Ομαδικότητα</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ====================== FOOTER ====================== -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-col footer-col-brand">
+      <img src="logo_white.png" alt="ENGAGE" class="footer-logo" />
+      <p>Ομάδα Καινοτομίας Φοιτητών ECE<br/>Πανεπιστήμιο Δυτικής Μακεδονίας</p>
+    </div>
+    <div class="footer-col">
+      <span class="footer-label">ΟΡΓΑΝΙΣΜΟΙ</span>
+      <ul>
+        <li>Πανεπιστήμιο Δυτικής Μακεδονίας</li>
+        <li>TELNAS Research Lab</li>
+        <li>Ομάδα Καινοτομίας ECE</li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <span class="footer-label">ΕΝΟΤΗΤΕΣ</span>
+      <ul>
+        <li><a href="#event">Για την εκδήλωση</a></li>
+        <li><a href="#schedule">Πρόγραμμα</a></li>
+        <li><a href="#talks">Ομιλίες &amp; demos</a></li>
+        <li><a href="#hackathon">Οδηγός hackathon</a></li>
+        <li><a href="#prizes">Βραβεία</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <span class="footer-label">ΠΛΗΡΟΦΟΡΙΕΣ</span>
+      <ul>
+        <li>Έκδοση 001 / 2026</li>
+        <li>Σελίδα πληροφοριών</li>
+        <li>Ενημερώνεται συνεχώς</li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© ECE · UOWM · 2026</span>
+    <span class="footer-bottom-mid">— ΤΗΜ · ΠΔΜ · ΚΟΖΑΝΗ —</span>
+    <span>v.001</span>
+  </div>
+</footer>
+
+<!-- ====================== SCRIPTS ====================== -->
+<script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+      "motion": "https://cdn.jsdelivr.net/npm/motion@11.11.17/+esm"
+    }
+  }
+</script>
+<script type="module" src="shader.js"></script>
+<script type="module" src="main.js"></script>
+</body>
+</html>
