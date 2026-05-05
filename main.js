@@ -34,14 +34,6 @@ window.addEventListener("DOMContentLoaded", () => {
         }
     );
 
-    if (heroSub) {
-        animate(
-            heroSub,
-            { opacity: [0, 1], y: [20, 0] },
-            { duration: 0.9, delay: 0.7, easing: [0.22, 1, 0.36, 1] }
-        );
-    }
-
     if (heroCta) {
         animate(
             heroCta,

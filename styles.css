@@ -362,7 +362,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   font-family: var(--font-display);
   font-weight: 800;
   font-size: clamp(40px, 10vw, 220px);
-  line-height: 0.86;
+  line-height: 0.96;
   letter-spacing: -0.045em;
   color: var(--text);
   text-align: center;
@@ -392,25 +392,32 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   text-align: center;
   font-size: clamp(15px, 1.4vw, 18px);
   line-height: 1.6;
-  color: var(--text-muted);
+  color: #c4cfe8;
+  text-shadow: 0 1px 16px rgba(5, 8, 19, 0.9), 0 0 40px rgba(5, 8, 19, 0.7);
 }
 .js-ready:not(.motion-fallback) .hero-sub {
   opacity: 0;
   transform: translateY(20px);
 }
 
-/* CTA row */
+/* CTA row — stacked: primary register button on top, secondary pair below */
 .hero-cta-row {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  gap: 20px;
+  gap: 24px;
   margin-top: 40px;
-  flex-wrap: wrap;
 }
 .js-ready:not(.motion-fallback) .hero-cta-row {
   opacity: 0;
   transform: translateY(20px);
+}
+.hero-cta-secondary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  flex-wrap: wrap;
 }
 
 /* Liquid Glass button (vanilla port) */
@@ -632,7 +639,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   font-family: var(--font-display);
   font-weight: 700;
   font-size: clamp(40px, 6vw, 88px);
-  line-height: 0.95;
+  line-height: 1.05;
   letter-spacing: -0.04em;
   margin: 0;
   color: var(--text);
@@ -1502,7 +1509,386 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
 }
 
-/* ---------- REVEAL UTILITIES ---------- */
+/* ---------- NAV REGISTER BUTTON ---------- */
+.nav-register-btn {
+  position: absolute;
+  right: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 34px;
+  padding: 0 18px;
+  border-radius: 999px;
+  background: var(--blue-electric);
+  color: #fff;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+  transition: background 0.25s var(--ease), transform 0.25s var(--ease), box-shadow 0.25s var(--ease);
+  box-shadow: 0 0 18px rgba(30, 95, 232, 0.35);
+}
+.nav-register-btn:hover {
+  background: var(--blue-bright);
+  transform: scale(1.04);
+  box-shadow: 0 0 28px rgba(30, 95, 232, 0.55);
+}
+.nav-register-btn:active { transform: scale(0.98); }
+.nav-register-btn svg { width: 12px; height: 12px; transition: transform 0.3s var(--ease); }
+.nav-register-btn:hover svg { transform: translateX(3px); }
+.nav-register-btn-dot {
+  width: 6px; height: 6px;
+  background: rgba(255,255,255,0.75);
+  border-radius: 50%;
+  animation: nav-pulse 2s ease-in-out infinite;
+  flex-shrink: 0;
+}
+@keyframes nav-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.7); }
+}
+
+/* Hide nav CTA on mobile (use mobile menu instead) */
+@media (max-width: 60em) {
+  .nav-register-btn { display: none; }
+}
+
+/* ---------- MOBILE MENU REGISTER LINK ---------- */
+.mobile-register-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 8px !important;
+  padding: 14px 20px !important;
+  background: rgba(30, 95, 232, 0.12) !important;
+  border: 1px solid rgba(30, 95, 232, 0.35) !important;
+  border-radius: 4px;
+  color: var(--blue-bright) !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.04em !important;
+  transition: background 0.25s var(--ease) !important;
+}
+.mobile-register-link:hover {
+  background: rgba(30, 95, 232, 0.22) !important;
+  color: #fff !important;
+}
+.mobile-register-link-dot {
+  width: 7px; height: 7px;
+  background: var(--blue-bright);
+  border-radius: 50%;
+  animation: nav-pulse 2s ease-in-out infinite;
+  flex-shrink: 0;
+}
+
+/* ---------- HERO REGISTER BUTTON (primary gradient CTA) ---------- */
+.register-button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 64px;
+  padding: 0 48px;
+  border-radius: 999px;
+  cursor: pointer;
+  isolation: isolate;
+  overflow: hidden;
+  transition: transform 0.4s var(--ease), box-shadow 0.4s var(--ease);
+  text-decoration: none;
+  box-shadow: 0 0 36px rgba(30, 95, 232, 0.45), 0 4px 16px rgba(0,0,0,0.3);
+  min-width: clamp(220px, 28vw, 340px);
+}
+.register-button:hover {
+  transform: scale(1.04) translateY(-2px);
+  box-shadow: 0 0 56px rgba(30, 95, 232, 0.65), 0 8px 28px rgba(0,0,0,0.4);
+}
+.register-button:active { transform: scale(0.98); }
+.register-button-bg {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(110deg, var(--blue-deep) 0%, var(--blue-electric) 50%, var(--blue-bright) 100%);
+  border-radius: 999px;
+}
+.register-button:hover .register-button-bg {
+  background: linear-gradient(110deg, var(--blue-electric) 0%, var(--blue-bright) 60%, #7EB0FF 100%);
+}
+.register-button-shimmer {
+  position: absolute;
+  inset: 0;
+  border-radius: 999px;
+  background: linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.16) 50%, transparent 60%);
+  background-size: 200% 100%;
+  animation: shimmer 2.8s ease-in-out infinite;
+}
+@keyframes shimmer {
+  0%   { background-position: -100% 0; }
+  100% { background-position: 200% 0; }
+}
+.register-button-text {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 17px;
+  letter-spacing: -0.01em;
+  color: #fff;
+}
+.register-button-text svg {
+  width: 18px; height: 18px;
+  transition: transform 0.3s var(--ease);
+}
+.register-button:hover .register-button-text svg { transform: translateX(4px); }
+.register-button-pulse {
+  width: 8px; height: 8px;
+  background: rgba(255,255,255,0.85);
+  border-radius: 50%;
+  flex-shrink: 0;
+  position: relative;
+}
+.register-button-pulse::before {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.25);
+  animation: pulse-ring 1.8s ease-out infinite;
+}
+@keyframes pulse-ring {
+  0%   { transform: scale(0.8); opacity: 1; }
+  100% { transform: scale(2.2); opacity: 0; }
+}
+
+/* ---------- REGISTRATION BANNER ---------- */
+.register-banner {
+  position: relative;
+  z-index: 2;
+  overflow: hidden;
+  padding: clamp(80px, 11vw, 160px) var(--gutter);
+  background: var(--bg-2);
+  border-top: 1px solid var(--line);
+}
+.register-banner-grid {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  pointer-events: none;
+}
+.register-banner-grid-line {
+  flex: 1;
+  border-right: 1px solid var(--line);
+}
+.register-banner-grid-line:last-child { border-right: 0; }
+.register-banner-glow {
+  position: absolute;
+  top: -40%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 70%;
+  height: 80%;
+  background: radial-gradient(ellipse at center, rgba(30, 95, 232, 0.12) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+.register-banner-inner {
+  position: relative;
+  z-index: 1;
+  max-width: var(--maxw);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 28px;
+}
+.register-banner-meta {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.register-banner-tag {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  color: var(--blue-bright);
+}
+.register-banner-deadline {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  color: var(--green);
+  padding: 4px 14px;
+  border: 1px solid rgba(74, 222, 128, 0.3);
+  border-radius: 999px;
+  background: rgba(74, 222, 128, 0.06);
+}
+.register-banner-pulse {
+  width: 7px; height: 7px;
+  background: var(--green);
+  border-radius: 50%;
+  flex-shrink: 0;
+  animation: pulse-green 1.8s ease-in-out infinite;
+}
+@keyframes pulse-green {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.5); }
+  50% { box-shadow: 0 0 0 6px rgba(74, 222, 128, 0); }
+}
+.register-banner-title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(52px, 11vw, 160px);
+  line-height: 0.97;
+  letter-spacing: -0.045em;
+  color: var(--text);
+}
+.register-banner-title em {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  background: linear-gradient(105deg, var(--blue-bright) 0%, var(--blue-electric) 50%, var(--blue-bright) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.register-banner-sub {
+  max-width: 540px;
+  margin: 0;
+  font-size: clamp(15px, 1.4vw, 18px);
+  line-height: 1.65;
+  color: var(--text-muted);
+}
+.register-banner-sub strong {
+  color: var(--text);
+  font-weight: 600;
+}
+.register-banner-details {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  border: 1px solid var(--line-strong);
+  border-radius: 8px;
+  overflow: hidden;
+  flex-wrap: wrap;
+}
+.register-banner-detail {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 14px 28px;
+}
+.register-banner-detail-sep {
+  width: 1px;
+  align-self: stretch;
+  background: var(--line-strong);
+}
+.register-banner-detail-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  color: var(--text-dim);
+}
+.register-banner-detail-value {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 18px;
+  letter-spacing: -0.02em;
+  color: var(--text);
+}
+/* Register banner CTA button */
+.register-banner-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 68px;
+  padding: 0 52px;
+  border-radius: 999px;
+  cursor: pointer;
+  isolation: isolate;
+  overflow: hidden;
+  transition: transform 0.4s var(--ease), box-shadow 0.4s var(--ease);
+  text-decoration: none;
+  box-shadow: 0 0 48px rgba(30, 95, 232, 0.45), 0 6px 24px rgba(0,0,0,0.35);
+}
+.register-banner-btn:hover {
+  transform: scale(1.05) translateY(-2px);
+  box-shadow: 0 0 72px rgba(30, 95, 232, 0.65), 0 10px 32px rgba(0,0,0,0.4);
+}
+.register-banner-btn:active { transform: scale(0.98); }
+.register-banner-btn-bg {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(110deg, var(--blue-deep) 0%, var(--blue-electric) 45%, var(--blue-bright) 100%);
+  border-radius: 999px;
+}
+.register-banner-btn-shimmer {
+  position: absolute;
+  inset: 0;
+  border-radius: 999px;
+  background: linear-gradient(105deg, transparent 35%, rgba(255,255,255,0.18) 50%, transparent 65%);
+  background-size: 200% 100%;
+  animation: shimmer 2.4s ease-in-out infinite;
+}
+.register-banner-btn-text {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 18px;
+  letter-spacing: -0.01em;
+  color: #fff;
+}
+.register-banner-btn-text svg {
+  width: 20px; height: 20px;
+  transition: transform 0.3s var(--ease);
+}
+.register-banner-btn:hover .register-banner-btn-text svg { transform: translateX(5px); }
+.register-banner-note {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  color: var(--text-dim);
+}
+
+/* Footer register link highlight */
+.footer-register-link {
+  color: var(--blue-bright) !important;
+  font-weight: 500;
+  transition: color 0.25s var(--ease) !important;
+}
+.footer-register-link:hover {
+  color: #fff !important;
+}
+
+@media (max-width: 720px) {
+  .register-banner-details {
+    flex-direction: column;
+    width: 100%;
+    max-width: 320px;
+  }
+  .register-banner-detail-sep { width: 100%; height: 1px; align-self: auto; }
+  .register-banner-btn {
+    height: 58px;
+    padding: 0 36px;
+    font-size: 16px;
+    width: 100%;
+    max-width: 380px;
+  }
+}
 .js-ready:not(.motion-fallback) [data-reveal] {
   opacity: 0;
   transform: translateY(28px);
